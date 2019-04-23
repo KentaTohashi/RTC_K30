@@ -14,33 +14,31 @@
 #include "RTC_CO2_K30.h"
 
 
-void MyModuleInit(RTC::Manager* manager)
-{
-  RTC_CO2_K30Init(manager);
-  RTC::RtcBase* comp;
+void MyModuleInit(RTC::Manager *manager) {
+    RTC_CO2_K30Init(manager);
+    RTC::RtcBase *comp;
 
-  // Create a component
-  comp = manager->createComponent("RTC_CO2_K30");
+    // Create a component
+    comp = manager->createComponent("RTC_CO2_K30");
 
-  if (comp==NULL)
-  {
-    std::cerr << "Component create failed." << std::endl;
-    abort();
-  }
+    if (comp == NULL) {
+        std::cerr << "Component create failed." << std::endl;
+        abort();
+    }
 
-  // Example
-  // The following procedure is examples how handle RT-Components.
-  // These should not be in this function.
+    // Example
+    // The following procedure is examples how handle RT-Components.
+    // These should not be in this function.
 
-  // Get the component's object reference
+    // Get the component's object reference
 //  RTC::RTObject_var rtobj;
 //  rtobj = RTC::RTObject::_narrow(manager->getPOA()->servant_to_reference(comp));
 
-  // Get the port list of the component
+    // Get the port list of the component
 //  PortServiceList* portlist;
 //  portlist = rtobj->get_ports();
 
-  // getting port profiles
+    // getting port profiles
 //  std::cout << "Number of Ports: ";
 //  std::cout << portlist->length() << std::endl << std::endl; 
 //  for (CORBA::ULong i(0), n(portlist->length()); i < n; ++i)
@@ -68,30 +66,29 @@ void MyModuleInit(RTC::Manager* manager)
 //    std::cout << "----------------" << std::endl << std::endl;
 //  }
 
-  return;
+    return;
 }
 
-int main (int argc, char** argv)
-{
-  RTC::Manager* manager;
-  manager = RTC::Manager::init(argc, argv);
+int main(int argc, char **argv) {
+    RTC::Manager *manager;
+    manager = RTC::Manager::init(argc, argv);
 
-  // Initialize manager
-  manager->init(argc, argv);
+    // Initialize manager
+    manager->init(argc, argv);
 
-  // Set module initialization proceduer
-  // This procedure will be invoked in activateManager() function.
-  manager->setModuleInitProc(MyModuleInit);
+    // Set module initialization proceduer
+    // This procedure will be invoked in activateManager() function.
+    manager->setModuleInitProc(MyModuleInit);
 
-  // Activate manager and register to naming service
-  manager->activateManager();
+    // Activate manager and register to naming service
+    manager->activateManager();
 
-  // run the manager in blocking mode
-  // runManager(false) is the default.
-  manager->runManager();
+    // run the manager in blocking mode
+    // runManager(false) is the default.
+    manager->runManager();
 
-  // If you want to run the manager in non-blocking mode, do like this
-  // manager->runManager(true);
+    // If you want to run the manager in non-blocking mode, do like this
+    // manager->runManager(true);
 
-  return 0;
+    return 0;
 }
